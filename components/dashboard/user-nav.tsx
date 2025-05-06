@@ -11,8 +11,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useAuth } from "@/components/auth-provider"
 
 export function UserNav() {
+  const { user, logout } = useAuth()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -26,7 +29,7 @@ export function UserNav() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">Administrador</p>
+            <p className="text-sm font-medium leading-none">{user?.name || "Administrador"}</p>
             <p className="text-xs leading-none text-muted-foreground">admin@novasalud.com</p>
           </div>
         </DropdownMenuLabel>
@@ -36,7 +39,7 @@ export function UserNav() {
           <DropdownMenuItem>Configuración</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Cerrar Sesión</DropdownMenuItem>
+        <DropdownMenuItem onClick={logout}>Cerrar Sesión</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

@@ -1,4 +1,5 @@
-import type { Metadata } from "next"
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Overview } from "@/components/dashboard/overview"
@@ -9,13 +10,22 @@ import { UserNav } from "@/components/dashboard/user-nav"
 import { CalendarDateRangePicker } from "@/components/dashboard/date-range-picker"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CreditCard, DollarSign, Package, Users } from "lucide-react"
-
-export const metadata: Metadata = {
-  title: "Dashboard - Nova Salud",
-  description: "Sistema de gestión para la botica Nova Salud",
-}
+import { useRouter } from "next/navigation"
+import { useToast } from "@/components/ui/use-toast"
+import { Toaster } from "@/components/ui/toaster"
 
 export default function DashboardPage() {
+  const router = useRouter()
+  const { toast } = useToast()
+
+  const handleNewSale = () => {
+    router.push("/ventas")
+    toast({
+      title: "Nueva venta",
+      description: "Iniciando una nueva venta",
+    })
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
       <div className="border-b">
@@ -32,7 +42,7 @@ export default function DashboardPage() {
           <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
           <div className="flex items-center space-x-2">
             <CalendarDateRangePicker />
-            <Button>
+            <Button onClick={handleNewSale}>
               <DollarSign className="mr-2 h-4 w-4" />
               Nueva Venta
             </Button>
@@ -134,6 +144,7 @@ export default function DashboardPage() {
           </TabsContent>
         </Tabs>
       </div>
+      <Toaster />
     </div>
   )
 }

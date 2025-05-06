@@ -38,24 +38,6 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
       >
         Ventas
       </Link>
-      <Link
-        href="/clientes"
-        className={cn(
-          "text-sm font-medium transition-colors hover:text-primary",
-          pathname === "/clientes" ? "text-primary" : "text-muted-foreground",
-        )}
-      >
-        Clientes
-      </Link>
-      <Link
-        href="/reportes"
-        className={cn(
-          "text-sm font-medium transition-colors hover:text-primary",
-          pathname === "/reportes" ? "text-primary" : "text-muted-foreground",
-        )}
-      >
-        Reportes
-      </Link>
     </nav>
   )
 }
