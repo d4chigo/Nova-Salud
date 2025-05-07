@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -20,26 +19,23 @@ export function UserNav() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-          <Avatar className="h-8 w-8">
+          <Avatar className="h-8 w-8 border-2 border-pharmacy-300">
             <AvatarImage src="/placeholder.svg" alt="Avatar" />
-            <AvatarFallback>NS</AvatarFallback>
+            <AvatarFallback className="bg-pharmacy-500 text-white">NS</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end" forceMount>
+      <DropdownMenuContent className="w-56 bg-white border-pharmacy-200" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{user?.name || "Administrador"}</p>
-            <p className="text-xs leading-none text-muted-foreground">admin@novasalud.com</p>
+            <p className="text-sm font-medium leading-none text-pharmacy-700">{user?.name || "Administrador"}</p>
+            <p className="text-xs leading-none text-pharmacy-500">admin@novasalud.com</p>
           </div>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>Perfil</DropdownMenuItem>
-          <DropdownMenuItem>Configuración</DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={logout}>Cerrar Sesión</DropdownMenuItem>
+        <DropdownMenuSeparator className="bg-pharmacy-100" />
+        <DropdownMenuItem onClick={logout} className="text-pharmacy-700 focus:bg-pharmacy-50 focus:text-pharmacy-700">
+          Cerrar Sesión
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

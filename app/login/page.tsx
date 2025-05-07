@@ -1,19 +1,20 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { AlertCircle } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import { useAuth } from "@/components/auth-provider"
+import { Logo } from "@/components/logo"
 
 export default function LoginPage() {
   const router = useRouter()
+  const { login } = useAuth()
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
@@ -26,13 +27,12 @@ export default function LoginPage() {
 
     // Simulación de autenticación
     if (username === "admin" && password === "admin123") {
-      // Guardar estado de autenticación en localStorage
-      localStorage.setItem("isAuthenticated", "true")
-      localStorage.setItem("user", JSON.stringify({ name: "Administrador", role: "admin" }))
+      // Iniciar sesión con el contexto de autenticación
+      login({ name: "Administrador", role: "admin" })
 
       // Redireccionar al dashboard
       setTimeout(() => {
-        router.push("/")
+        router.push("/dashboard")
       }, 1000)
     } else {
       setError("Usuario o contraseña incorrectos")
@@ -41,21 +41,20 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex h-screen w-full items-center justify-center bg-gray-50">
-      <Card className="w-full max-w-md">
+    <div className="flex h-screen w-full items-center justify-center bg-gradient-to-br from-pharmacy-50 to-pharmacy-100">
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-10 pointer-events-none"
+        style={{ backgroundImage: "url('/placeholder.svg?height=1080&width=1920')" }}
+      ></div>
+      <Card className="w-full max-w-md pharmacy-shadow border-pharmacy-200">
         <CardHeader className="space-y-1 text-center">
           <div className="flex justify-center mb-4">
-            <div className="relative h-20 w-20">
-              <Image
-                src="/placeholder.svg?height=80&width=80"
-                alt="Logo Nova Salud"
-                fill
-                className="rounded-full object-cover"
-              />
-            </div>
+            <Logo size="large" />
           </div>
-          <CardTitle className="text-2xl font-bold">Botica Nova Salud</CardTitle>
-          <CardDescription>Ingrese sus credenciales para acceder al sistema</CardDescription>
+          <CardTitle className="text-2xl font-bold text-pharmacy-700">Farmacia Nova Salud</CardTitle>
+          <CardDescription className="text-pharmacy-600">
+            Ingrese sus credenciales para acceder al sistema
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           {error && (
@@ -67,17 +66,22 @@ export default function LoginPage() {
           <form onSubmit={handleLogin}>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="username">Usuario</Label>
+                <Label htmlFor="username" className="text-pharmacy-700">
+                  Usuario
+                </Label>
                 <Input
                   id="username"
                   placeholder="Ingrese su usuario"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   required
+                  className="border-pharmacy-200 focus-visible:ring-pharmacy-500"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Contraseña</Label>
+                <Label htmlFor="password" className="text-pharmacy-700">
+                  Contraseña
+                </Label>
                 <Input
                   id="password"
                   type="password"
@@ -85,9 +89,14 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  className="border-pharmacy-200 focus-visible:ring-pharmacy-500"
                 />
               </div>
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button
+                type="submit"
+                className="w-full bg-pharmacy-500 hover:bg-pharmacy-600 text-white"
+                disabled={isLoading}
+              >
                 {isLoading ? "Iniciando sesión..." : "Iniciar Sesión"}
               </Button>
             </div>

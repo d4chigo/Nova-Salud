@@ -2,64 +2,74 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-export function RecentSales() {
+type Product = {
+  id: string
+  name: string
+  category: string
+  laboratory: string
+  stock: number
+  price: number
+  status: string
+  sales?: number
+}
+
+type RecentSale = {
+  customer: string
+  initials: string
+  description: string
+  amount: number
+}
+
+export function RecentSales({ products }: { products: Product[] }) {
+  // Generar ventas recientes basadas en los productos del inventario
+  const recentSales: RecentSale[] = [
+    {
+      customer: "Juan López",
+      initials: "JL",
+      description: `${products[0]?.name || "Medicamento"} y ${products[2]?.name || "otro producto"}`,
+      amount: 89.0,
+    },
+    {
+      customer: "María Rodríguez",
+      initials: "MR",
+      description: `${products[5]?.name || "Producto dermatológico"}`,
+      amount: 139.5,
+    },
+    {
+      customer: "Carlos Gómez",
+      initials: "CG",
+      description: `${products[1]?.name || "Antibiótico"} y ${products[0]?.name || "analgésico"}`,
+      amount: 112.75,
+    },
+    {
+      customer: "Lucía Vega",
+      initials: "LV",
+      description: `${products[5]?.name || "Producto dermatológico"}`,
+      amount: 175.25,
+    },
+    {
+      customer: "Roberto Mendoza",
+      initials: "RM",
+      description: `${products[0]?.name || "Medicamento"} y suplementos`,
+      amount: 94.5,
+    },
+  ]
+
   return (
     <div className="space-y-8">
-      <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="/placeholder.svg" alt="Avatar" />
-          <AvatarFallback>JL</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">Juan López</p>
-          <p className="text-sm text-muted-foreground">Medicamentos para presión arterial</p>
+      {recentSales.map((sale, index) => (
+        <div key={index} className="flex items-center">
+          <Avatar className="h-9 w-9">
+            <AvatarImage src="/placeholder.svg" alt="Avatar" />
+            <AvatarFallback>{sale.initials}</AvatarFallback>
+          </Avatar>
+          <div className="ml-4 space-y-1">
+            <p className="text-sm font-medium leading-none">{sale.customer}</p>
+            <p className="text-sm text-muted-foreground">{sale.description}</p>
+          </div>
+          <div className="ml-auto font-medium">S/. {sale.amount.toFixed(2)}</div>
         </div>
-        <div className="ml-auto font-medium">S/. 89.00</div>
-      </div>
-      <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="/placeholder.svg" alt="Avatar" />
-          <AvatarFallback>MR</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">María Rodríguez</p>
-          <p className="text-sm text-muted-foreground">Vitaminas y suplementos</p>
-        </div>
-        <div className="ml-auto font-medium">S/. 139.50</div>
-      </div>
-      <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="/placeholder.svg" alt="Avatar" />
-          <AvatarFallback>CG</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">Carlos Gómez</p>
-          <p className="text-sm text-muted-foreground">Antibióticos y analgésicos</p>
-        </div>
-        <div className="ml-auto font-medium">S/. 112.75</div>
-      </div>
-      <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="/placeholder.svg" alt="Avatar" />
-          <AvatarFallback>LV</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">Lucía Vega</p>
-          <p className="text-sm text-muted-foreground">Productos dermatológicos</p>
-        </div>
-        <div className="ml-auto font-medium">S/. 175.25</div>
-      </div>
-      <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="/placeholder.svg" alt="Avatar" />
-          <AvatarFallback>RM</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">Roberto Mendoza</p>
-          <p className="text-sm text-muted-foreground">Medicamentos para diabetes</p>
-        </div>
-        <div className="ml-auto font-medium">S/. 94.50</div>
-      </div>
+      ))}
     </div>
   )
 }

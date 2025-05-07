@@ -66,7 +66,7 @@ export function Overview() {
           tickFormatter={(value) => `S/.${value}`}
         />
         <Tooltip formatter={(value) => [`S/.${value}`, "Ventas"]} labelFormatter={(label) => `Mes: ${label}`} />
-        <Bar dataKey="total" fill="#16a34a" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="total" fill="#0096ff" radius={[4, 4, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>
   )

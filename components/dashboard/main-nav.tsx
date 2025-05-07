@@ -12,10 +12,10 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
   return (
     <nav className={cn("flex items-center space-x-4 lg:space-x-6", className)} {...props}>
       <Link
-        href="/"
+        href="/dashboard"
         className={cn(
-          "text-sm font-medium transition-colors hover:text-primary",
-          pathname === "/" ? "text-primary" : "text-muted-foreground",
+          "text-sm font-medium transition-colors hover:text-pharmacy-600",
+          pathname === "/dashboard" ? "text-pharmacy-600 font-semibold" : "text-muted-foreground",
         )}
       >
         Dashboard
@@ -23,8 +23,8 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
       <Link
         href="/inventario"
         className={cn(
-          "text-sm font-medium transition-colors hover:text-primary",
-          pathname === "/inventario" ? "text-primary" : "text-muted-foreground",
+          "text-sm font-medium transition-colors hover:text-pharmacy-600",
+          pathname === "/inventario" ? "text-pharmacy-600 font-semibold" : "text-muted-foreground",
         )}
       >
         Inventario
@@ -32,8 +32,8 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
       <Link
         href="/ventas"
         className={cn(
-          "text-sm font-medium transition-colors hover:text-primary",
-          pathname === "/ventas" ? "text-primary" : "text-muted-foreground",
+          "text-sm font-medium transition-colors hover:text-pharmacy-600",
+          pathname === "/ventas" ? "text-pharmacy-600 font-semibold" : "text-muted-foreground",
         )}
       >
         Ventas
