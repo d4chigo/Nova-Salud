@@ -8,7 +8,7 @@ import { UserNav } from "@/components/dashboard/user-nav"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
-import { Plus, AlertTriangle, Pencil, Trash } from "lucide-react"
+import { Plus, AlertTriangle, Pencil, Trash, Loader2 } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 import { Toaster } from "@/components/ui/toaster"
 import {
@@ -52,6 +52,7 @@ export default function InventarioClientPage() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
   const [selectedProductId, setSelectedProductId] = useState("")
+  const [orderingProducts, setOrderingProducts] = useState<string[]>([])
   const [newProduct, setNewProduct] = useState({
     id: "",
     name: "",
@@ -278,11 +279,28 @@ export default function InventarioClientPage() {
   }
 
   const handleOrderProduct = (name: string) => {
+    // Agregar el producto a la lista de productos en proceso de pedido
+    setOrderingProducts((prev) => [...prev, name])
+
+    // Mostrar el toast de inmediato
     toast({
       title: "Pedido iniciado",
       description: `Se está ordenando producto: ${name}`,
       duration: 3000,
     })
+
+    // Simular un proceso de pedido
+    setTimeout(() => {
+      // Eliminar el producto de la lista de productos en proceso de pedido
+      setOrderingProducts((prev) => prev.filter((p) => p !== name))
+
+      // Mostrar un toast de confirmación
+      toast({
+        title: "Pedido completado",
+        description: `El pedido de ${name} ha sido procesado correctamente`,
+        duration: 3000,
+      })
+    }, 2000)
   }
 
   // Filtrar productos
@@ -571,8 +589,16 @@ export default function InventarioClientPage() {
                     size="sm"
                     className="bg-pharmacy-500 hover:bg-pharmacy-600"
                     onClick={() => handleOrderProduct(product.name)}
+                    disabled={orderingProducts.includes(product.name)}
                   >
-                    Ordenar
+                    {orderingProducts.includes(product.name) ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Ordenando...
+                      </>
+                    ) : (
+                      "Ordenar"
+                    )}
                   </Button>
                 </div>
               ))
@@ -606,8 +632,16 @@ export default function InventarioClientPage() {
                     size="sm"
                     className="bg-red-500 hover:bg-red-600"
                     onClick={() => handleOrderProduct(product.name)}
+                    disabled={orderingProducts.includes(product.name)}
                   >
-                    Ordenar
+                    {orderingProducts.includes(product.name) ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Ordenando...
+                      </>
+                    ) : (
+                      "Ordenar"
+                    )}
                   </Button>
                 </div>
               ))

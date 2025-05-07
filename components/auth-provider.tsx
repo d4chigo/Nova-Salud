@@ -48,7 +48,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Redireccionar según estado de autenticación
     if (!isLoading) {
-      if (!isAuthenticated && pathname !== "/login" && pathname !== "/") {
+      if (!isAuthenticated && pathname !== "/login") {
         router.push("/login")
       } else if (isAuthenticated && (pathname === "/login" || pathname === "/")) {
         router.push("/dashboard")
